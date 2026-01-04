@@ -31,7 +31,7 @@ export default function Header() {
                     className="
                       relative text-sm font-medium tracking-widest text-black
                       after:absolute after:left-0 after:-bottom-2
-                      after:h-[1px] after:w-0 after:bg-black
+                      after:h-px after:w-0 after:bg-black
                       after:transition-all after:duration-500
                       hover:after:w-full
                     "
