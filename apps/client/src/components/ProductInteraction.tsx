@@ -1,0 +1,129 @@
+"use client";
+
+import { ProductType } from "@repo/types";
+import { Minus, Plus } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+const ProductInteraction = ({
+  product,
+  selectedSize,
+  selectedColor,
+}: {
+  product: ProductType;
+  selectedSize: string;
+  selectedColor: string;
+}) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParans = useSearchParams();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleTypeChange = (type: string, value: string) => {
+    const params = new URLSearchParams(searchParans.toString());
+    params.set(type, value);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const handleQuantityChange = (type: "increment" | "decrement") => {
+    if (type === "increment") {
+      setQuantity((prev) => prev + 1);
+    } else {
+      if (quantity > 1) {
+        setQuantity((prev) => prev - 1);
+      }
+    }
+  };
+
+  const handleAddToCart = () => {
+    toast.success("Added to cart!");
+  };
+
+  return (
+    <div className="flex flex-col gap-4 mt-4">
+      <div>
+        <span className="font-bold text-sm">Kích thước: </span>
+        <span className="text-xs underline text-gray-500 hover:cursor-pointer">
+          Hướng dẫn chọn size
+        </span>
+      </div>
+      {/* Size */}
+      <div className="flex flex-col gap-2 text-sm">
+        <span className="text-gray-500">Kích cỡ</span>
+        <div className="flex items-center gap-2">
+          {product.sizes.map((size) => (
+            <div
+              className={`cursor-pointer border p-0.5 ${
+                selectedSize === size ? "border-gray-600" : "border-gray-300"
+              }`}
+              key={size}
+              onClick={() => handleTypeChange("size", size)}
+            >
+              <div
+                className={`w-6 h-6 text-center flex items-center justify-center ${
+                  selectedSize === size
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                }`}
+              >
+                {size.toUpperCase()}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Color */}
+      <div className="flex flex-col gap-2 text-sm">
+        <span className="text-gray-500">Màu sắc</span>
+        <div className="flex items-center gap-2">
+          {product.colors.map((color) => (
+            <div
+              className={`cursor-pointer border p-0.5 ${
+                selectedColor === color ? "border-gray-600" : "border-white"
+              }`}
+              key={color}
+              onClick={() => handleTypeChange("color", color)}
+            >
+              <div
+                className={`w-6 h-6`}
+                style={{ backgroundColor: color }}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quantity */}
+      <div className="flex flex-col gap-2 text-sm">
+        <span className="text-gray-500">Số lượng</span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => handleQuantityChange("decrement")}
+            className="cursor-pointer border border-gray-300 p-1"
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <span>{quantity}</span>
+          <button
+            onClick={() => handleQuantityChange("increment")}
+            className="cursor-pointer border border-gray-300 p-1"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Button */}
+      <button
+        onClick={handleAddToCart}
+        className="bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg flex items-center justify-center gap-2 cursor-pointer text-sm font-medium"
+      >
+        <Plus className="w-4 h-4" />
+        Thêm vào giỏ
+      </button>
+    </div>
+  );
+};
+export default ProductInteraction;

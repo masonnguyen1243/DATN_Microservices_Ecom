@@ -44,7 +44,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
         <div className="flex items-center gap-4 text-xs">
           {/* Sizes */}
           <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Size</span>
+            <span className="text-gray-500">Kích cỡ</span>
             <select
               name="size"
               id="size"
@@ -62,7 +62,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
           </div>
           {/* Colors */}
           <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Colors</span>
+            <span className="text-gray-500">Màu sắc</span>
             <div className="flex items-center gap-2">
               {product.colors.map((color) => (
                 <div

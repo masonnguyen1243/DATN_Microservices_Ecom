@@ -10,6 +10,11 @@ import {
   Snowflake,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FaHatCowboy } from "react-icons/fa";
+import { GiJackPlug } from "react-icons/gi";
+import { HiAtSymbol } from "react-icons/hi";
+import { PiPants } from "react-icons/pi";
+import { TbJacket } from "react-icons/tb";
 
 const categories = [
   {
@@ -19,7 +24,7 @@ const categories = [
   },
   {
     name: "Quần",
-    icon: <Snowflake className="w-4 h-4" />,
+    icon: <PiPants className="w-4 h-4" />,
     slug: "pants",
   },
   {
@@ -44,12 +49,12 @@ const categories = [
   },
   {
     name: "Áo khoác",
-    icon: <Shirt className="w-4 h-4" />,
+    icon: <TbJacket className="w-4 h-4" />,
     slug: "jackets",
   },
   {
     name: "Mũ",
-    icon: <HatGlasses className="w-4 h-4" />,
+    icon: <FaHatCowboy className="w-4 h-4" />,
     slug: "hat",
   },
 ];

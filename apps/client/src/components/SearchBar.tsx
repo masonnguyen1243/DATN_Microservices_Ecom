@@ -6,7 +6,7 @@ const SearchBar = () => {
       <Search className="w-4 h-4 text-gray-500" />
       <input
         id="search"
-        placeholder="Search..."
+        placeholder="Tìm kiếm..."
         type="text"
         className="text-sm outline-0"
       />

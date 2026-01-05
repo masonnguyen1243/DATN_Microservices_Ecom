@@ -28,14 +28,6 @@ export default async function Home({
 
       <h2 className="text-black font-bold text-3xl uppercase mt-16">Áo</h2>
       <ProductList category={category} params="homepage" />
-
-      <Image
-        src={"/footer-featured.jpeg"}
-        alt="Featured Product"
-        width={1152}
-        height={768}
-        className="mt-16"
-      />
     </div>
   );
 }

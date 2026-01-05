@@ -154,7 +154,7 @@ const ProductList = ({
           href={category ? `/products?category=${category}` : "/products"}
           className="flex justify-end mb-4 underline text-sm text-gray-500"
         >
-          See all products
+          Tất cả sản phẩm
         </Link>
       )}
 
