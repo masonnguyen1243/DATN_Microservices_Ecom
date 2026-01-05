@@ -1,6 +1,8 @@
 import { ProductsType } from "@repo/types";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
+import Filter from "./Filter";
+import Categories from "./Categories";
 
 //Mock data
 const products: ProductsType = [
@@ -134,15 +136,27 @@ const products: ProductsType = [
   },
 ];
 
-const ProductList = ({ category }: { category: string }) => {
+const ProductList = ({
+  category,
+  params,
+}: {
+  category: string;
+  params: "homepage" | "products";
+}) => {
   return (
-    <div className="w-full">
-      <Link
-        href={category ? `/products?category=${category}` : "/products"}
-        className="flex justify-end mb-4 underline text-sm text-gray-500"
-      >
-        See all products
-      </Link>
+    <div className="w-full mt-6">
+      {params === "products" && <Categories />}
+
+      {params === "products" && <Filter />}
+
+      {params !== "products" && (
+        <Link
+          href={category ? `/products?category=${category}` : "/products"}
+          className="flex justify-end mb-4 underline text-sm text-gray-500"
+        >
+          See all products
+        </Link>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-12">
         {products.map((product) => (
