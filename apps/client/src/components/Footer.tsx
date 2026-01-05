@@ -15,20 +15,6 @@ const Footer = () => {
         <p className="text-sm text-gray-400">All rights reserved.</p>
       </div>
 
-      {/* 
-Hướng dẫn chọn size 
-
-Phương thức thanh toán
-
-Chính sách vận chuyển
-
-Chính sách bảo mật
-
-Quy định đổi trả
-
-Chính sách xử lý khiếu nại
-*/}
-
       <div className="flex flex-col gap-4 text-sm text-gray-400 items-center md:items-start">
         <p className="text-sm text-amber-50">Hỗ trợ khách hàng</p>
         <Link href={"/"}>Hướng dẫn mua hàng</Link>
