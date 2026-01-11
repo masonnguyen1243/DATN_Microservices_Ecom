@@ -4,6 +4,8 @@ import { Home, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Header from "./Header";
 import ShoppingCartIcon from "./ShoppingCartIcon";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import ProfileButton from "./ProfileButton";
 
 const Navbar = () => {
   return (
@@ -22,7 +24,12 @@ const Navbar = () => {
           <Home className="w-4 h-4 text-gray-600" />
         </Link>
         <ShoppingCartIcon />
-        <User className="w-4 h-4 text-gray-600 cursor-pointer" />
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <ProfileButton />
+        </SignedIn>
       </div>
     </div>
   );
