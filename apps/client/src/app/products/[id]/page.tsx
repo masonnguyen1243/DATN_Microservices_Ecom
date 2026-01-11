@@ -1,5 +1,4 @@
 import ProductInteraction from "@/components/ProductInteraction";
-import ProductList from "@/components/ProductList";
 import RelatedProducts from "@/components/RelatedProducts";
 import { ProductType } from "@repo/types";
 import Image from "next/image";
