@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Home, User } from "lucide-react";
+import { Home } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Header from "./Header";
 import ShoppingCartIcon from "./ShoppingCartIcon";
