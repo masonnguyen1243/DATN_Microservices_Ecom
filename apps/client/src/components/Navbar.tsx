@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Home, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Header from "./Header";
-import ShoppingCartIcon from "./ShoppingCartItem";
+import ShoppingCartIcon from "./ShoppingCartIcon";
 
 const Navbar = () => {
   return (

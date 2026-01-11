@@ -18,7 +18,8 @@
     "react-hook-form": "^7.71.0",
     "react-icons": "^5.5.0",
     "react-toastify": "^11.0.5",
-    "zod": "^4.1.13"
+    "zod": "^4.1.13",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

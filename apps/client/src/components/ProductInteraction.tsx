@@ -1,5 +1,6 @@
 "use client";
 
+import useCartStore from "@/store/cartStore";
 import { ProductType } from "@repo/types";
 import { Minus, Plus } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -15,6 +16,8 @@ const ProductInteraction = ({
   selectedSize: string;
   selectedColor: string;
 }) => {
+  const { addToCart } = useCartStore();
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParans = useSearchParams();
@@ -37,7 +40,14 @@ const ProductInteraction = ({
   };
 
   const handleAddToCart = () => {
-    toast.success("Added to cart!");
+    addToCart({
+      ...product,
+      quantity,
+      selectedSize,
+      selectedColor,
+    });
+
+    toast.success("Đã thêm vào giỏ hàng!");
   };
 
   return (

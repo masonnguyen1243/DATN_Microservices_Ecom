@@ -1,12 +1,16 @@
 "use client";
 
+import useCartStore from "@/store/cartStore";
 import { ProductType } from "@repo/types";
 import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
+  const { addToCart } = useCartStore();
+
   const [productType, setProductType] = useState({
     size: product.sizes[0],
     color: product.colors[0],
@@ -20,6 +24,17 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     value: string;
   }) => {
     setProductType((prev) => ({ ...prev, [type]: value }));
+  };
+
+  const handleAddToCart = () => {
+    addToCart({
+      ...product,
+      quantity: 1,
+      selectedSize: productType.size,
+      selectedColor: productType.color,
+    });
+
+    toast.success("Đã thêm vào giỏ hàng!");
   };
 
   return (
@@ -92,7 +107,10 @@ const ProductCard = ({ product }: { product: ProductType }) => {
             {product.price.toLocaleString("vi-VN")}
             <span className="text-sm underline align-baseline ml-0.5">đ</span>
           </p>
-          <button className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2">
+          <button
+            onClick={handleAddToCart}
+            className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2"
+          >
             <ShoppingBag className="w-4 h-4" />
             Thêm vào giỏ
           </button>
