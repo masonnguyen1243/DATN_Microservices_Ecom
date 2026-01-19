@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import { getAuth, clerkPlugin } from "@clerk/fastify";
+import { isUser } from "./middleware/authMiddleware.js";
 
 const fastify = Fastify();
 
@@ -13,12 +14,11 @@ fastify.get("/health", (request, reply) => {
   });
 });
 
-fastify.get("/test", (request, reply) => {
-  const { userId } = getAuth(request);
-  if (!userId) {
-    return reply.send({ message: "Not authorized!" });
-  }
-  return reply.send({ message: "Order service is authorized!" });
+fastify.get("/test", { preHandler: isUser }, (request, reply) => {
+  return reply.send({
+    message: "Order service is authenticated!",
+    userId: request.userId,
+  });
 });
 
 const start = async () => {
