@@ -4,22 +4,31 @@ import { ProductType } from "@repo/types";
 import Image from "next/image";
 
 //Mockdata
-const product: ProductType = {
-  id: 1,
-  name: "Áo Phông Regular L.14.2851",
-  shortDescription:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  description:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  price: 99000,
-  sizes: ["s", "m", "l", "xl", "xxl"],
-  colors: ["gray", "pink", "green"],
-  images: {
-    gray: "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_3HjkANRYQp.jpeg?v=1717407028",
-    pink: "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_pjkETypTNY.jpeg?v=1717405982",
-    green:
-      "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_H2TTnCTCkQ.jpeg?v=1717406048",
-  },
+// const product: ProductType = {
+//   id: 1,
+//   name: "Áo Phông Regular L.14.2851",
+//   shortDescription:
+//     "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
+//   description:
+//     "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
+//   price: 99000,
+//   sizes: ["s", "m", "l", "xl", "xxl"],
+//   colors: ["gray", "pink", "green"],
+//   images: {
+//     gray: "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_3HjkANRYQp.jpeg?v=1717407028",
+//     pink: "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_pjkETypTNY.jpeg?v=1717405982",
+//     green:
+//       "https://pos.nvncdn.com/f4d87e-8901/ps/20240603_H2TTnCTCkQ.jpeg?v=1717406048",
+//   },
+// };
+
+const fetchProduct = async (id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`,
+  );
+
+  const data: ProductType = await res.json();
+  return data;
 };
 
 const ProductPage = async ({
@@ -31,6 +40,9 @@ const ProductPage = async ({
 }) => {
   const { size, color } = await searchParams;
 
+  const { id } = await params;
+  const product = await fetchProduct(id);
+
   const selectedSize = (size || product.sizes[0]) as string;
   const selectedColor = (color || product.colors[0]) as string;
 
@@ -40,7 +52,9 @@ const ProductPage = async ({
         {/* Images */}
         <div className="w-full lg:w-5/12 relative aspect-2/3">
           <Image
-            src={product.images[selectedColor]}
+            src={
+              (product.images as Record<string, string>)?.[selectedColor] || ""
+            }
             alt={product.name}
             fill
             className="object-contain rounded-md"
