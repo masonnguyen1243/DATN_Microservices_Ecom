@@ -9,4 +9,4 @@ export type ProductType = {
   images: Record<string, string>;
 };
 
-export type ProductsType = ProductType[];
+export type ProductsTypes = ProductType[];
