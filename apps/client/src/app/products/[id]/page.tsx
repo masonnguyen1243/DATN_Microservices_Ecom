@@ -115,7 +115,10 @@ const ProductPage = async ({
       <h2 className="text-black font-bold text-3xl uppercase mb-6 mt-12">
         Sản phẩm có thể bạn sẽ thích
       </h2>
-      <RelatedProducts />
+      <RelatedProducts
+        category={product.categorySlug || ""}
+        excludeProductId={product.id}
+      />
     </div>
   );
 };
