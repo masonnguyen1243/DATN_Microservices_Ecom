@@ -16,7 +16,7 @@ const categories = [
   {
     name: "Tất cả",
     icon: <ShoppingBasket className="w-4 h-4" />,
-    slug: "all",
+    slug: "",
   },
   {
     name: "Quần",
@@ -64,7 +64,7 @@ const Categories = () => {
 
   const handleChange = (value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("category", value || "all");
+    params.set("category", value || "");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 

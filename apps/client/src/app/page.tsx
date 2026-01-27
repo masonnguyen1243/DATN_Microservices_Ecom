@@ -12,7 +12,7 @@ export default async function Home({
     <div className="">
       <div className="relative aspect-3/2 mb-12">
         <Image
-          src={"/featured.png"}
+          src={"/featured.jpeg"}
           alt="Featured Product"
           width={1152}
           height={768}
@@ -33,6 +33,11 @@ export default async function Home({
         Áo khoác
       </h2>
       <ProductList category={"jacket"} params="homepage" />
+
+      <h2 className="text-black font-bold text-3xl uppercase mt-16">
+        Giày dép
+      </h2>
+      <ProductList category={"shoes"} params="homepage" />
     </div>
   );
 }

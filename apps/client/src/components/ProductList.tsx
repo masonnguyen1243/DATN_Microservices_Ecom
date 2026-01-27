@@ -155,7 +155,7 @@ const fetchData = async ({
   return data;
 };
 
-const ShirtList = async ({
+const ProductList = async ({
   category,
   params,
   sort,
@@ -192,4 +192,4 @@ const ShirtList = async ({
   );
 };
 
-export default ShirtList;
+export default ProductList;
