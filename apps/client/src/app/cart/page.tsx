@@ -135,51 +135,63 @@ const CartPage = () => {
         {/* Steps */}
         <div className="w-full lg:w-7/12 shadow-lg border border-gray-100 p-8 rounded-lg flex flex-col gap-8">
           {activeStep === 1 ? (
-            cart.map((item) => (
-              // Single cart item
-              <div
-                key={item.id + item.selectedSize + item.selectedColor}
-                className="flex items-center justify-between"
-              >
-                {/* Image and details */}
-                <div className="flex gap-8">
-                  {/* image */}
-                  <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
-                    <Image
-                      src={item.images[item.selectedColor]}
-                      alt={item.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  {/* details */}
-                  <div className="flex flex-col justify-between">
-                    <div className="flex flex-col gap-1">
-                      <p className="text-sm font-medium">{item.name}</p>
-                      <p className="text-xs text-gray-500">
-                        Số lượng: {item.quantity}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Kích cỡ: {item.selectedSize}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Màu sắc: {item.selectedColor}
+            cart.length === 0 ? (
+              <div className="flex items-center justify-center flex-col h-full gap-4">
+                <Image
+                  src="/cart-empty.png"
+                  alt="Empty cart"
+                  width={200}
+                  height={200}
+                />
+                <p className="text-center text-gray-500">Giỏ hàng rỗng</p>
+              </div>
+            ) : (
+              cart.map((item) => (
+                // Single cart item
+                <div
+                  key={item.id + item.selectedSize + item.selectedColor}
+                  className="flex items-center justify-between"
+                >
+                  {/* Image and details */}
+                  <div className="flex gap-8">
+                    {/* image */}
+                    <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
+                      <Image
+                        src={item.images[item.selectedColor]}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    {/* details */}
+                    <div className="flex flex-col justify-between">
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm font-medium">{item.name}</p>
+                        <p className="text-xs text-gray-500">
+                          Số lượng: {item.quantity}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Kích cỡ: {item.selectedSize}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Màu sắc: {item.selectedColor}
+                        </p>
+                      </div>
+                      <p className="font-medium">
+                        {item.price.toLocaleString("vi-VN")}đ
                       </p>
                     </div>
-                    <p className="font-medium">
-                      {item.price.toLocaleString("vi-VN")}đ
-                    </p>
                   </div>
+                  {/* Delete button */}
+                  <button
+                    onClick={() => removeFromCart(item)}
+                    className="w-8 h-8 rounded-full bg-red-100 hover:bg-red-200 transition-all duration-300 text-red-400 flex items-center justify-center cursor-pointer"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
-                {/* Delete button */}
-                <button
-                  onClick={() => removeFromCart(item)}
-                  className="w-8 h-8 rounded-full bg-red-100 hover:bg-red-200 transition-all duration-300 text-red-400 flex items-center justify-center cursor-pointer"
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              </div>
-            ))
+              ))
+            )
           ) : activeStep === 2 ? (
             <ShippingForm setShippingForm={setShippingForm} />
           ) : activeStep === 3 && shippingForm ? (
