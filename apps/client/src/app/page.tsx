@@ -1,4 +1,3 @@
-import ShirtList from "@/components/ProductList";
 import ProductList from "@/components/ProductList";
 import Image from "next/image";
 
@@ -25,10 +24,10 @@ export default async function Home({
       <ProductList category={category} params="homepage" />
 
       <h2 className="text-black font-bold text-3xl uppercase mt-16">Quần</h2>
-      <ProductList category={category} params="homepage" />
+      <ProductList category={"jeans"} params="homepage" />
 
       <h2 className="text-black font-bold text-3xl uppercase mt-16">Áo</h2>
-      <ShirtList category={"t-shirts"} params="homepage" />
+      <ProductList category={"t-shirts"} params="homepage" />
     </div>
   );
 }
