@@ -148,14 +148,14 @@ const fetchData = async ({
   params: "homepage" | "products";
 }) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?${category ? `category=${category}` : ""}${search ? `&search=${search}` : ""}&sort=${sort || "newest"}${params === "homepage" ? "&limit=8" : ""}`,
+    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?${category ? `category=${category}` : "jacket"}${search ? `&search=${search}` : ""}&sort=${sort || "newest"}${params === "homepage" ? "&limit=8" : ""}`,
   );
 
   const data: ProductType[] = await res.json();
   return data;
 };
 
-const ShirtList = async ({
+const ProductList = async ({
   category,
   params,
   sort,
@@ -192,4 +192,4 @@ const ShirtList = async ({
   );
 };
 
-export default ShirtList;
+export default ProductList;
