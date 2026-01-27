@@ -28,6 +28,11 @@ export default async function Home({
 
       <h2 className="text-black font-bold text-3xl uppercase mt-16">Áo</h2>
       <ProductList category={"t-shirts"} params="homepage" />
+
+      <h2 className="text-black font-bold text-3xl uppercase mt-16">
+        Áo khoác
+      </h2>
+      <ProductList category={"jacket"} params="homepage" />
     </div>
   );
 }

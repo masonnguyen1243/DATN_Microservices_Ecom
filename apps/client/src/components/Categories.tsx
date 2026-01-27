@@ -4,15 +4,11 @@ import {
   Briefcase,
   Footprints,
   Glasses,
-  HatGlasses,
   Shirt,
   ShoppingBasket,
-  Snowflake,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FaHatCowboy } from "react-icons/fa";
-import { GiJackPlug } from "react-icons/gi";
-import { HiAtSymbol } from "react-icons/hi";
 import { PiPants } from "react-icons/pi";
 import { TbJacket } from "react-icons/tb";
 
@@ -25,7 +21,7 @@ const categories = [
   {
     name: "Quần",
     icon: <PiPants className="w-4 h-4" />,
-    slug: "pants",
+    slug: "jeans",
   },
   {
     name: "Áo",
@@ -50,7 +46,7 @@ const categories = [
   {
     name: "Áo khoác",
     icon: <TbJacket className="w-4 h-4" />,
-    slug: "jackets",
+    slug: "jacket",
   },
   {
     name: "Mũ",
