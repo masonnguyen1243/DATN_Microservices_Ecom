@@ -38,6 +38,11 @@ export default async function Home({
         Giày dép
       </h2>
       <ProductList category={"shoes"} params="homepage" />
+
+      <h2 className="text-black font-bold text-3xl uppercase mt-16">
+        Balo / Túi xách
+      </h2>
+      <ProductList category={"bags"} params="homepage" />
     </div>
   );
 }
