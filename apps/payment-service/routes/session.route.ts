@@ -32,7 +32,7 @@ sessionRoute.post("/create-checkout-session", isUser, async (c) => {
       client_reference_id: userId,
       ui_mode: "custom",
       mode: "payment",
-      return_url: `http://localhost:3002/complete?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `http://localhost:3002/return?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     console.log("Session: ", session);
@@ -42,6 +42,23 @@ sessionRoute.post("/create-checkout-session", isUser, async (c) => {
     console.log(error);
     return c.json({ error: error });
   }
+});
+
+sessionRoute.get("/:session_id", async (c) => {
+  const { session_id } = c.req.param();
+  const session = await stripe.checkout.sessions.retrieve(
+    session_id as string,
+    {
+      expand: ["line_items"],
+    },
+  );
+
+  console.log(session);
+
+  return c.json({
+    status: session.status,
+    paymentStatus: session.payment_status,
+  });
 });
 
 export default sessionRoute;
