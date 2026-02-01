@@ -1,14 +1,7 @@
 import { z } from "zod";
+import { Product } from "@repo/product-db";
 
-export type CartItemType = {
-  id: string | number;
-  name: string;
-  shortDescription: string;
-  description: string;
-  price: number;
-  sizes: string[];
-  colors: string[];
-  images: Record<string, string>;
+export type CartItemType = Product & {
   quantity: number;
   selectedSize: string;
   selectedColor: string;
@@ -40,7 +33,7 @@ export const paymentFormSchema = z.object({
     .string()
     .regex(
       /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/,
-      "Expiration date must be in MM/YY format"
+      "Expiration date must be in MM/YY format",
     ),
   cvv: z.string().min(3, "CVV is required").max(3, "CVV must be 3 digits"),
 });

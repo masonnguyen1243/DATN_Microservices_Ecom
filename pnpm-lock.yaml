@@ -216,7 +216,7 @@ importers:
         specifier: ^4.11.3
         version: 4.11.3
       stripe:
-        specifier: ^20.0.0
+        specifier: ^20.1.2
         version: 20.1.2(@types/node@24.10.7)
     devDependencies:
       '@repo/types':
@@ -329,6 +329,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@repo/product-db':
+        specifier: workspace:*
+        version: link:../product-db
       zod:
         specifier: ^4.3.5
         version: 4.3.5

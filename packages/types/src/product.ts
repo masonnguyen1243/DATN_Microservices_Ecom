@@ -1,13 +1,13 @@
-export type ProductType = {
-  id: string | number;
+import type { Product, Category } from "@repo/product-db";
+
+export type ProductType = Product;
+
+export type ProductsType = Product[];
+
+export type StripeProductType = {
+  id: string;
   name: string;
-  shortDescription: string;
-  description: string;
   price: number;
-  sizes: string[];
-  colors: string[];
-  images: Record<string, string>;
-  categorySlug?: string;
 };
 
-export type ProductsTypes = ProductType[];
+export type CategoryType = Category;
