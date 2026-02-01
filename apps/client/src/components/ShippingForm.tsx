@@ -40,6 +40,7 @@ const ShippingForm = ({
           placeholder="Nguyễn Văn A"
           {...register("name")}
           className="border-b border-gray-200 py-2 outline-none text-sm"
+          value={"Nguyễn Văn A"}
         />
         {errors.name && (
           <p className="text-xs text-red-500">{errors.name.message}</p>
@@ -57,6 +58,7 @@ const ShippingForm = ({
           placeholder="example@gmail.com"
           {...register("email")}
           className="border-b border-gray-200 py-2 outline-none text-sm"
+          value={"nguyenvana@gmail.com"}
         />
         {errors.email && (
           <p className="text-xs text-red-500">{errors.email.message}</p>
@@ -74,6 +76,7 @@ const ShippingForm = ({
           placeholder="0987654321"
           {...register("phone")}
           className="border-b border-gray-200 py-2 outline-none text-sm"
+          value={"0123456789"}
         />
         {errors.phone && (
           <p className="text-xs text-red-500">{errors.phone.message}</p>
@@ -91,6 +94,7 @@ const ShippingForm = ({
           placeholder="Mễ Trì, Nam Từ Liêm"
           {...register("address")}
           className="border-b border-gray-200 py-2 outline-none text-sm"
+          value={"Me Tri"}
         />
         {errors.address && (
           <p className="text-xs text-red-500">{errors.address.message}</p>
@@ -108,6 +112,7 @@ const ShippingForm = ({
           placeholder="Hà Nội"
           {...register("city")}
           className="border-b border-gray-200 py-2 outline-none text-sm"
+          value={"Ha Noi"}
         />
         {errors.city && (
           <p className="text-xs text-red-500">{errors.city.message}</p>
