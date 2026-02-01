@@ -12,7 +12,8 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   const { addToCart } = useCartStore();
 
   const [productType, setProductType] = useState({
-    size: product.sizes[0],
+    size:
+      product.sizes && product.sizes.length > 0 ? product.sizes[0] : undefined,
     color: product.colors[0],
   });
 
@@ -61,23 +62,26 @@ const ProductCard = ({ product }: { product: ProductType }) => {
         {/* Product types */}
         <div className="flex items-center gap-4 text-xs">
           {/* Sizes */}
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Kích cỡ</span>
-            <select
-              name="size"
-              id="size"
-              onChange={(e) =>
-                handleProductType({ type: "size", value: e.target.value })
-              }
-              className="ring ring-gray-300 rounded-md px-2 py-1 "
-            >
-              {product.sizes.map((size) => (
-                <option key={size} value={size}>
-                  {size.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </div>
+          {product.sizes && product.sizes.length > 0 && (
+            <div className="flex flex-col gap-1">
+              <span className="text-gray-500">Kích cỡ</span>
+              <select
+                name="size"
+                id="size"
+                onChange={(e) =>
+                  handleProductType({ type: "size", value: e.target.value })
+                }
+                className="ring ring-gray-300 rounded-md px-2 py-1 "
+                value={productType.size}
+              >
+                {product.sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           {/* Colors */}
           <div className="flex flex-col gap-1">
             <span className="text-gray-500">Màu sắc</span>
