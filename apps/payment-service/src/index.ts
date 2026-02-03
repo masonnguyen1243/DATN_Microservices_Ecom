@@ -4,9 +4,9 @@ import { getAuth, clerkMiddleware } from "@hono/clerk-auth";
 import { isUser } from "./middleware/authMiddleware.js";
 import sessionRoute from "../routes/session.route.js";
 import { cors } from "hono/cors";
-import stripe from "./utils/stripe.js";
 import webhookRoute from "../routes/webhook.route.js";
 import { consumer, producer } from "./utils/kafka.js";
+import { runKafkaSubscriptions } from "./utils/subscriptions.js";
 
 const app = new Hono();
 
@@ -44,22 +44,10 @@ app.get("/test", isUser, (c) => {
   });
 });
 
-app.post("/create-stripe-product", async (c) => {
-  const res = await stripe.products.create({
-    id: "123",
-    name: "test 123",
-    default_price_data: {
-      currency: "vnd",
-      unit_amount: 123000,
-    },
-  });
-
-  return c.json(res);
-});
-
 const start = async () => {
   try {
     Promise.all([await producer.connect(), await consumer.connect()]);
+    await runKafkaSubscriptions();
 
     serve(
       {
