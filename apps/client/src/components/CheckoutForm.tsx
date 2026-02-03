@@ -1,3 +1,4 @@
+import useCartStore from "@/store/cartStore";
 import { ShippingFormInputs } from "@repo/types";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useCheckout } from "@stripe/react-stripe-js";
@@ -12,6 +13,8 @@ const CheckoutForm = ({
   const checkout = useCheckout();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ConfirmError | null>(null);
+
+  const { clearCart } = useCartStore();
 
   const handleClick = async () => {
     setLoading(true);
@@ -29,6 +32,8 @@ const CheckoutForm = ({
     const res = await checkout.confirm();
     if (res.type === "error") {
       setError(res.error);
+    } else {
+      clearCart();
     }
     setLoading(false);
   };
@@ -36,9 +41,27 @@ const CheckoutForm = ({
   return (
     <form>
       <PaymentElement options={{ layout: "accordion" }} />
-      <button disabled={loading} onClick={handleClick}>
-        {loading ? "Đang tải..." : "Thanh toán"}
+      <button
+        type="button"
+        disabled={loading}
+        onClick={handleClick}
+        className="
+    w-full mt-6
+    rounded-lg
+    bg-black text-white
+    py-3 px-4
+    font-medium
+    transition-all
+    hover:bg-gray-800
+    active:scale-[0.98]
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+    cursor-pointer
+  "
+      >
+        {loading ? "Đang xử lý thanh toán..." : "Thanh toán"}
       </button>
+
       {error && <div className="">{error.message}</div>}
     </form>
   );

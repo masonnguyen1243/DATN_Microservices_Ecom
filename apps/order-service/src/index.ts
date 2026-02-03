@@ -4,6 +4,7 @@ import { isUser } from "./middleware/authMiddleware.js";
 import { consumer, producer } from "./utils/kafka.js";
 import { connectOrderDB } from "@repo/order-db";
 import { runKafkaSubscriptions } from "./utils/subscriptions.js";
+import { orderRoutes } from "./routes/order.route.js";
 
 const fastify = Fastify();
 
@@ -23,6 +24,8 @@ fastify.get("/test", { preHandler: isUser }, (request, reply) => {
     userId: request.userId,
   });
 });
+
+fastify.register(orderRoutes);
 
 const start = async () => {
   try {
