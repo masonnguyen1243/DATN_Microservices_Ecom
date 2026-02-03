@@ -5,6 +5,7 @@ import { isUser } from "./middleware/authMiddleware.js";
 import sessionRoute from "../routes/session.route.js";
 import { cors } from "hono/cors";
 import stripe from "./utils/stripe.js";
+import webhookRoute from "../routes/webhook.route.js";
 
 const app = new Hono();
 
@@ -25,6 +26,7 @@ app.get("/health", (c) => {
 });
 
 app.route("/sessions", sessionRoute);
+app.route("/webhooks", webhookRoute);
 
 app.get("/test", isUser, (c) => {
   const auth = getAuth(c);
