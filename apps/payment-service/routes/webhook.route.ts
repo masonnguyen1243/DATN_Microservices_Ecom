@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import Stripe from "stripe";
 import stripe from "../src/utils/stripe";
+import { producer } from "../src/utils/kafka";
 
 const webhookRoute = new Hono();
 
@@ -27,19 +28,19 @@ webhookRoute.post("/stripe", async (c) => {
       );
 
       //Create order
-      //   producer.send("payment.successful", {
-      //     value: {
-      //       userId: sesstion.client_reference_id,
-      //       email: sesstion.customer_details?.email,
-      //       amount: sesstion.amount_total,
-      //       status: sesstion.payment_status === "paid" ? "success" : "failed",
-      //       products: lineItems.data.map((item) => ({
-      //         name: item.description,
-      //         quantity: item.quantity,
-      //         price: item.price?.unit_amount,
-      //       })),
-      //     },
-      //   });
+      producer.send("payment.successful", {
+        value: {
+          userId: sesstion.client_reference_id,
+          email: sesstion.customer_details?.email,
+          amount: sesstion.amount_total,
+          status: sesstion.payment_status === "paid" ? "success" : "failed",
+          products: lineItems.data.map((item) => ({
+            name: item.description,
+            quantity: item.quantity,
+            price: item.price?.unit_amount,
+          })),
+        },
+      });
 
       console.log("Webhook received", sesstion);
 

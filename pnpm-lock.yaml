@@ -190,6 +190,9 @@ importers:
       '@repo/kafka':
         specifier: workspace:*
         version: link:../../packages/kafka
+      '@repo/order-db':
+        specifier: workspace:*
+        version: link:../../packages/order-db
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -370,6 +373,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@repo/order-db':
+        specifier: workspace:*
+        version: link:../order-db
       '@repo/product-db':
         specifier: workspace:*
         version: link:../product-db
