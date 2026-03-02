@@ -33,6 +33,7 @@ sessionRoute.post("/create-checkout-session", isUser, async (c) => {
       ui_mode: "custom",
       mode: "payment",
       return_url: `http://localhost:3002/return?session_id={CHECKOUT_SESSION_ID}`,
+      locale: "vi",
     });
 
     console.log("Session: ", session);
