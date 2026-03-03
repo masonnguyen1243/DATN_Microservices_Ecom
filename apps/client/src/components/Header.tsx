@@ -6,10 +6,10 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
 const menuItems = [
-  { label: "QUẦN", href: "/" },
-  { label: "ÁO", href: "/" },
-  { label: "GIÀY", href: "/" },
-  { label: "PHỤ KIỆN", href: "/" },
+  { label: "QUẦN", href: "/products?category=jeans" },
+  { label: "ÁO", href: "/products?category=t-shirts" },
+  { label: "GIÀY", href: "/products?category=shoes" },
+  { label: "PHỤ KIỆN", href: "/products?category=accessories" },
   { label: "THÔNG TIN", href: "/" },
 ];
 
