@@ -18,7 +18,7 @@ const chartConfig = {
   },
   successful: {
     label: "Thành công",
-    color: "var(--chart-4)",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 
@@ -40,7 +40,7 @@ const AppBarChart = ({
   console.log(chartData);
 
   return (
-    <div className="">
+    <div className="w-full overflow-x-auto">
       <h1 className="text-lg font-medium mb-6">Tổng doanh thu</h1>
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart accessibilityLayer data={chartData}>
