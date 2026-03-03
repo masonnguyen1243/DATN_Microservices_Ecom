@@ -13,7 +13,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   total: {
-    label: "Tất cả",
+    label: "Tổng đơn",
     color: "var(--chart-1)",
   },
   successful: {
@@ -37,6 +37,8 @@ const AppBarChart = ({
   dataPromise: Promise<OrderChartType[]>;
 }) => {
   const chartData = use(dataPromise);
+  console.log(chartData);
+
   return (
     <div className="">
       <h1 className="text-lg font-medium mb-6">Tổng doanh thu</h1>
@@ -48,7 +50,7 @@ const AppBarChart = ({
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
+            tickFormatter={(value) => value}
           />
           <YAxis tickLine={false} tickMargin={10} axisLine={false} />
           <ChartTooltip content={<ChartTooltipContent />} />

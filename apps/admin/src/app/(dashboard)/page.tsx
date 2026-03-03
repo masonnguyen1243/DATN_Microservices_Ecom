@@ -36,7 +36,7 @@ const Homepage = async () => {
         <AppAreaChart />
       </div> */}
       <div className="bg-primary-foreground p-4 rounded-lg">
-        <CardList title="Sản phẩm nổi bật" />
+        <CardList title="Sản phẩm mới nhất" />
       </div>
     </div>
   );

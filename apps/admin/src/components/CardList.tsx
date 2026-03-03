@@ -129,7 +129,7 @@ const CardList = async ({ title }: { title: string }) => {
   const { getToken } = await auth();
   const token = await getToken();
 
-  if (title === "Sản phẩm nổi bật") {
+  if (title === "Sản phẩm mới nhất") {
     products = await fetch(
       `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?limit=5&popular=true`,
     ).then((res) => res.json());
@@ -148,7 +148,7 @@ const CardList = async ({ title }: { title: string }) => {
     <div className="">
       <h1 className="text-lg font-medium mb-6">{title}</h1>
       <div className="flex flex-col gap-2">
-        {title === "Sản phẩm nổi bật"
+        {title === "Sản phẩm mới nhất"
           ? products.map((item) => (
               <Card
                 key={item.id}
