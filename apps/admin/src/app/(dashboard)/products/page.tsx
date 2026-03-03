@@ -5,7 +5,7 @@ import { DataTable } from "./data-table";
 const getData = async (): Promise<ProductsType> => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`
+      `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`,
     );
 
     const data = await res.json();
@@ -21,7 +21,7 @@ const ProductsPage = async () => {
   return (
     <div className="">
       <div className="mb-8 px-4 py-2 bg-secondary rounded-md">
-        <h1 className="font-semibold">All Products</h1>
+        <h1 className="font-semibold">Tất cả sản phẩm</h1>
       </div>
       <DataTable columns={columns} data={data} />
     </div>

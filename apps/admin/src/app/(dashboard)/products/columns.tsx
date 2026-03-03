@@ -48,7 +48,7 @@ export const columns: ColumnDef<ProductType>[] = [
   },
   {
     accessorKey: "images",
-    header: "Image",
+    header: "Hình ảnh",
     cell: ({ row }) => {
       const product = row.original;
       return (
@@ -69,25 +69,33 @@ export const columns: ColumnDef<ProductType>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Tên sản phẩm",
   },
   {
     accessorKey: "price",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Giá
+        <ArrowUpDown className="ml-1 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const amount = Number(row.getValue("price"));
+
+      const formatted = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(amount);
+
+      return <div className="font-medium">{formatted}</div>;
     },
   },
   {
     accessorKey: "shortDescription",
-    header: "Description",
+    header: "Mô tả",
   },
   {
     id: "actions",
@@ -103,17 +111,23 @@ export const columns: ColumnDef<ProductType>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Hành động</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(String(product.id))}
             >
-              Copy product ID
+              Sao chép ID sản phẩm
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/product/${product.id}`}>View product</Link>
+              <a
+                href={`http://localhost:3002/products/${product.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Xem sản phẩm
+              </a>
             </DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Chỉnh sửa</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
