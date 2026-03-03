@@ -71,7 +71,7 @@ const SingleUserPage = async ({
       {/* CONTAINER */}
       <div className="mt-4 flex flex-col xl:flex-row gap-8">
         {/* LEFT */}
-        <div className="w-full xl:w-1/3 space-y-6">
+        <div className="w-full  space-y-6">
           {/* USER CARD CONTAINER */}
           <div className="bg-primary-foreground p-4 rounded-lg space-y-2">
             <div className="flex items-center gap-2">
@@ -93,7 +93,10 @@ const SingleUserPage = async ({
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel
               voluptas distinctio ab ipsa commodi fugiat labore quos veritatis
               cum corrupti sed repudiandae ipsum, harum recusandae ratione ipsam
-              in, quis quia.
+              in, quis quia. Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Vel voluptas distinctio ab ipsa commodi fugiat labore quos
+              veritatis cum corrupti sed repudiandae ipsum, harum recusandae
+              ratione ipsam in, quis quia.
             </p>
           </div>
           {/* INFORMATION CONTAINER */}
@@ -139,13 +142,13 @@ const SingleUserPage = async ({
           </div>
         </div>
         {/* RIGHT */}
-        <div className="w-full xl:w-2/3 space-y-6">
-          {/* CHART CONTAINER */}
-          <div className="bg-primary-foreground p-4 rounded-lg">
-            <h1 className="text-xl font-semibold">User Activity</h1>
-            <AppLineChart />
-          </div>
-        </div>
+        {/* <div className="w-full xl:w-2/3 space-y-6"> */}
+        {/* CHART CONTAINER */}
+        {/* <div className="bg-primary-foreground p-4 rounded-lg"> */}
+        {/* <h1 className="text-xl font-semibold">Lịch sử mua hàng</h1> */}
+        {/* <AppLineChart /> */}
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </div>
   );
