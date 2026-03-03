@@ -21,6 +21,10 @@ import {
 import { DataTablePagination } from "@/components/TablePagination";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -48,12 +52,57 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const { getToken } = useAuth();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const token = await getToken();
+      const selectedRows = table.getSelectedRowModel().rows;
+
+      const selectedIds = selectedRows.map((row) => (row.original as any).id);
+
+      await Promise.all(
+        selectedIds.map(async (productId) => {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${productId}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
+
+          if (!res.ok) {
+            throw new Error("Xoá sản phẩm thất bại");
+          }
+        }),
+      );
+    },
+
+    onSuccess: () => {
+      toast.success("Xoá sản phẩm thành công!");
+      setRowSelection({});
+      router.refresh();
+    },
+
+    onError: (error: any) => {
+      console.log(error);
+      toast.error(error.message || "Có lỗi xảy ra!");
+    },
+  });
+
   console.log(rowSelection);
   return (
     <div className="rounded-md border">
       {Object.keys(rowSelection).length > 0 && (
         <div className="flex justify-end">
-          <button className="flex items-center gap-2 bg-red-500 text-white px-2 py-1 text-sm rounded-md m-4 cursor-pointer">
+          <button
+            onClick={() => mutation.mutate()}
+            disabled={mutation.isPending}
+            className="flex items-center gap-2 bg-red-500 text-white px-2 py-1 text-sm rounded-md m-4 cursor-pointer"
+          >
             <Trash2 className="w-4 h-4" />
             Xoá sản phẩm
           </button>
