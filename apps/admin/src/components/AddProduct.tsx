@@ -55,6 +55,7 @@ const AddProduct = () => {
       shortDescription: "",
       description: "",
       price: 0,
+      inventory: 0,
       categorySlug: "",
       sizes: [],
       colors: [],
@@ -188,6 +189,28 @@ const AddProduct = () => {
                       </FormControl>
                       <FormDescription>
                         Nhập vào giá của sản phẩm (đơn vị VNĐ)
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="inventory"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Số lượng tồn kho</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Nhập vào số lượng tồn kho của sản phẩm
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -350,7 +373,7 @@ const AddProduct = () => {
                                       formData.append("file", file);
                                       formData.append(
                                         "upload_preset",
-                                        "monorepo-ecom",
+                                        "DATN_uploads",
                                       );
 
                                       const res = await fetch(

@@ -64,6 +64,9 @@ export const ProductFormSchema = z
     price: z
       .number({ message: "Price is required!" })
       .min(1, { message: "Price is required!" }),
+    inventory: z
+      .number({ message: "Inventory is required!" })
+      .min(0, { message: "Inventory must be a non-negative number!" }),
     categorySlug: z
       .string({ message: "Category is required" })
       .min(1, { message: "Category is required!" }),
