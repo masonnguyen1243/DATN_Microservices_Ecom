@@ -64,7 +64,7 @@ export const columns: ColumnDef<OrderType>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Trạng thái",
     cell: ({ row }) => {
       const status = row.getValue("status");
 
@@ -74,7 +74,7 @@ export const columns: ColumnDef<OrderType>[] = [
             `p-1 rounded-md w-max text-xs`,
             status === "pending" && "bg-yellow-500/40",
             status === "success" && "bg-green-500/40",
-            status === "failed" && "bg-red-500/40"
+            status === "fail" && "bg-red-500/40",
           )}
         >
           {status as string}
@@ -84,13 +84,13 @@ export const columns: ColumnDef<OrderType>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div className="text-right">Số tiền</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("vi-VN", {
         style: "currency",
-        currency: "USD",
-      }).format(amount / 100);
+        currency: "VND",
+      }).format(amount);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
@@ -104,22 +104,20 @@ export const columns: ColumnDef<OrderType>[] = [
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Hành động</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(order._id)}
             >
-              Copy order ID
+              Sao chép ID đơn hàng
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={`/users/${order.userId}`}>View customer</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>View order details</DropdownMenuItem>
+            {/* <DropdownMenuItem>
+              <Link href={`/users/${order.userId}`}>Xem đơn hàng</Link>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
