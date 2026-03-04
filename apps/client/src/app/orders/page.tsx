@@ -20,60 +20,63 @@ const fetchOrders = async () => {
 const OrdersPage = async () => {
   const orders = await fetchOrders();
 
-  console.log(orders);
-
   if (!orders || orders.length === 0) {
     return (
-      <div className="text-center py-20 text-gray-500">
-        Không tìm thấy đơn hàng nào 🧾
+      <div className="flex flex-col items-center justify-center py-24 text-gray-500">
+        <p className="text-lg font-medium">Bạn chưa có đơn hàng nào</p>
+        <p className="text-sm mt-2">Hãy mua sắm để tạo đơn hàng mới 🛍️</p>
       </div>
     );
   }
 
+  console.log(orders);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-semibold mb-6">Đơn hàng của tôi</h1>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold mb-8">Đơn hàng của tôi</h1>
 
       {/* ===== Desktop ===== */}
-      <div className="hidden md:block overflow-x-auto rounded-lg border">
+      <div className="hidden md:block overflow-hidden rounded-2xl shadow-sm border bg-white">
         <table className="w-full text-sm">
-          <thead className="bg-gray-100 text-gray-600">
+          <thead className="bg-gray-50 text-gray-600 text-xs uppercase tracking-wide">
             <tr>
-              <th className="text-left px-4 py-3">ID</th>
-              <th className="text-left px-4 py-3">Sản phẩm</th>
-              <th className="text-right px-4 py-3">Tổng tiền</th>
-              <th className="text-center px-4 py-3">Trạng thái</th>
-              <th className="text-center px-4 py-3">Ngày</th>
+              <th className="text-left px-6 py-4">Sản phẩm</th>
+              <th className="text-right px-6 py-4">Tổng tiền</th>
+              <th className="text-center px-6 py-4">Trạng thái</th>
+              <th className="text-center px-6 py-4">Ngày đặt</th>
             </tr>
           </thead>
 
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-3 font-medium">{order._id}</td>
-
-                <td className="px-4 py-3">
+              <tr
+                key={order._id}
+                className="border-t hover:bg-gray-50 transition"
+              >
+                <td className="px-6 py-4 font-medium text-gray-800">
                   {order.products?.map((p) => p.name).join(", ") || "-"}
                 </td>
 
-                <td className="px-4 py-3 text-right font-medium">
+                <td className="px-6 py-4 text-right font-semibold text-gray-900">
                   {order.amount.toLocaleString("vi-VN")}đ
                 </td>
 
-                <td className="px-4 py-3 text-center">
+                <td className="px-6 py-4 text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium
+                    className={`px-3 py-1 rounded-full text-xs font-semibold
                       ${
                         order.status === "success"
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-700"
                       }`}
                   >
-                    {order.status === "success" ? "Thành công" : "Thất bại"}
+                    {order.status === "success"
+                      ? "Thanh toán thành công"
+                      : "Thanh toán thất bại"}
                   </span>
                 </td>
 
-                <td className="px-4 py-3 text-center text-gray-500">
+                <td className="px-6 py-4 text-center text-gray-500">
                   {order.createdAt
                     ? new Date(order.createdAt).toLocaleDateString("vi-VN")
                     : "-"}
@@ -87,48 +90,43 @@ const OrdersPage = async () => {
       {/* ===== Mobile ===== */}
       <div className="md:hidden space-y-4">
         {orders.map((order) => (
-          <div key={order._id} className="border rounded-lg p-4 shadow-sm">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <p className="text-xs text-gray-500">Order ID</p>
-                <p className="font-medium">{order._id}</p>
-              </div>
-
+          <div
+            key={order._id}
+            className="bg-white border rounded-2xl p-5 shadow-sm space-y-4"
+          >
+            <div className="flex justify-between items-center">
               <span
-                className={`px-2 py-1 rounded-full text-xs font-medium
+                className={`px-3 py-1 rounded-full text-xs font-semibold
                   ${
                     order.status === "success"
                       ? "bg-green-100 text-green-700"
                       : "bg-red-100 text-red-700"
                   }`}
               >
-                {order.status === "success" ? "Thành công" : "Thất bại"}
+                {order.status === "success"
+                  ? "Thanh toán thành công"
+                  : "Thanh toán thất bại"}
+              </span>
+
+              <span className="text-xs text-gray-400">
+                {order.createdAt
+                  ? new Date(order.createdAt).toLocaleDateString("vi-VN")
+                  : "-"}
               </span>
             </div>
 
-            <div className="mb-2">
-              <p className="text-xs text-gray-500">Sản phẩm</p>
-              <p className="text-sm">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Sản phẩm</p>
+              <p className="font-medium text-gray-800">
                 {order.products?.map((p) => p.name).join(", ") || "-"}
               </p>
             </div>
 
-            <div className="flex justify-between text-sm">
-              <div>
-                <p className="text-gray-500 text-xs">Tổng tiền</p>
-                <p className="font-medium">
-                  {order.amount.toLocaleString("vi-VN")}đ
-                </p>
-              </div>
-
-              <div className="text-right">
-                <p className="text-gray-500 text-xs">Ngày</p>
-                <p>
-                  {order.createdAt
-                    ? new Date(order.createdAt).toLocaleDateString("vi-VN")
-                    : "-"}
-                </p>
-              </div>
+            <div>
+              <p className="text-xs text-gray-500">Tổng tiền</p>
+              <p className="text-lg font-bold text-gray-900">
+                {order.amount.toLocaleString("vi-VN")}đ
+              </p>
             </div>
           </div>
         ))}
