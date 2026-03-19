@@ -20,9 +20,6 @@ const Navbar = () => {
       {/* Right */}
       <div className="flex items-center gap-6">
         <SearchBar />
-        <Link href={"/"}>
-          <Home className="w-4 h-4 text-gray-600" />
-        </Link>
         <ShoppingCartIcon />
         <SignedOut>
           <SignInButton />
