@@ -33,7 +33,7 @@ const OrderSchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export type OrderSchemaType = InferSchemaType<typeof OrderSchema>;

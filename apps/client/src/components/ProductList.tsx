@@ -150,7 +150,7 @@ const fetchData = async ({
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?${category ? `category=${category}` : ""}${search ? `&search=${search}` : ""}&sort=${sort || "newest"}${params === "homepage" ? "&limit=8" : ""}`,
   );
-
+  console.log("SEARCH FRONTEND:", search);
   const data: ProductType[] = await res.json();
   return data;
 };

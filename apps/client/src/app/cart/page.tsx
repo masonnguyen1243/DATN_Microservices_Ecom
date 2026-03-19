@@ -223,24 +223,24 @@ const CartPage = () => {
             </div>
 
             {/* Shipping fee */}
-            <div className="flex justify-between text-sm">
+            {/* <div className="flex justify-between text-sm">
               <p className="text-gray-500">Phí giao hàng</p>
               <p className="font-medium">30.000đ</p>
-            </div>
+            </div> */}
           </div>
 
           <hr className="border-gray-200" />
 
           {/* Total number */}
-          <div className="flex justify-between">
-            <p className="text-gray-500">Số lượng</p>
+          {/* <div className="flex justify-between">
+            <p className="text-gray-500">Tổng</p>
             <p className="font-medium">
               {cart
                 .reduce((acc, item) => acc + item.price * item.quantity, 0)
                 .toLocaleString("vi-VN")}
               đ
             </p>
-          </div>
+          </div> */}
 
           {activeStep === 1 && (
             <button
