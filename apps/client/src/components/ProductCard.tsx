@@ -39,10 +39,10 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   };
 
   return (
-    <div className="shadow-lg rounded-lg overflow-hidden">
+    <div className="group relative overflow-hidden rounded-2xl bg-black text-white">
       {/* Image */}
       <Link href={`/products/${product.id}`}>
-        <div className="relative aspect-2/3 hover:scale-105 transition-all duration-300">
+        <div className="relative aspect-[2/3]">
           <Image
             src={
               (product.images as Record<string, string>)?.[productType.color] ||
@@ -50,76 +50,68 @@ const ProductCard = ({ product }: { product: ProductType }) => {
             }
             alt={product.name}
             fill
-            className="object-cover"
+            className="object-cover group-hover:scale-105 transition duration-500"
           />
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
       </Link>
 
-      {/* Product details */}
-      <div className="flex flex-col gap-4 p-4">
-        <h1 className="font-medium">{product.name}</h1>
-        <p className="text-sm text-gray-500">{product.shortDescription}</p>
-        {/* Product types */}
-        <div className="flex items-center gap-4 text-xs">
-          {/* Sizes */}
-          {product.sizes && product.sizes.length > 0 && (
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Kích cỡ</span>
-              <select
-                name="size"
-                id="size"
-                onChange={(e) =>
-                  handleProductType({ type: "size", value: e.target.value })
-                }
-                className="ring ring-gray-300 rounded-md px-2 py-1 "
-                value={productType.size}
-              >
-                {product.sizes.map((size) => (
-                  <option key={size} value={size}>
-                    {size.toUpperCase()}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-          {/* Colors */}
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Màu sắc</span>
-            <div className="flex items-center gap-2">
-              {product.colors.map((color) => (
-                <div
-                  className={`cursor-pointer border rounded-full p-[1.2px] ${
-                    productType.color === color
-                      ? "border-gray-400"
-                      : "border-gray-200"
-                  }`}
-                  key={color}
-                  onClick={() =>
-                    handleProductType({ type: "color", value: color })
-                  }
-                >
-                  <div
-                    className="w-3.5 h-3.5 rounded-full"
-                    style={{ backgroundColor: color }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Content overlay */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+        {/* Name */}
+        <h2 className="text-sm font-medium line-clamp-2">{product.name}</h2>
+
+        {/* Price */}
+        <p className="text-sm font-semibold opacity-90">
+          {product.price.toLocaleString("vi-VN")}đ
+        </p>
+
+        {/* Colors */}
+        <div className="flex gap-2">
+          {product.colors.map((color) => (
+            <div
+              key={color}
+              onClick={() => handleProductType({ type: "color", value: color })}
+              className={`w-4 h-4 rounded-full border cursor-pointer ${
+                productType.color === color
+                  ? "border-white scale-110"
+                  : "border-gray-400"
+              }`}
+              style={{ backgroundColor: color }}
+            />
+          ))}
         </div>
 
-        {/* Price and add to cart */}
-        <div className="flex items-center justify-between">
-          <p className="font-bold">
-            {product.price.toLocaleString("vi-VN")}
-            <span className="text-sm underline align-baseline ml-0.5">đ</span>
-          </p>
+        {/* Action */}
+        <div className="flex items-center justify-between mt-2">
+          {/* Size */}
+          {product.sizes && (
+            <select
+              value={productType.size}
+              onChange={(e) =>
+                handleProductType({ type: "size", value: e.target.value })
+              }
+              className="text-xs bg-white/10 border border-white/20 rounded-md px-2 py-1 backdrop-blur-sm"
+            >
+              {product.sizes.map((size) => (
+                <option key={size} value={size}>
+                  {size.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {/* Add */}
           <button
-            onClick={handleAddToCart}
-            className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2"
+            onClick={(e) => {
+              e.preventDefault();
+              handleAddToCart();
+            }}
+            className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-white text-black hover:bg-gray-200 transition"
           >
-            <ShoppingBag className="w-4 h-4" />
-            Thêm vào giỏ
+            <ShoppingBag className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>

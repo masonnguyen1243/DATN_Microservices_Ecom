@@ -20,11 +20,11 @@ const ProductInteraction = ({
 
   const router = useRouter();
   const pathname = usePathname();
-  const searchParans = useSearchParams();
+  const searchParams = useSearchParams();
   const [quantity, setQuantity] = useState(1);
 
   const handleTypeChange = (type: string, value: string) => {
-    const params = new URLSearchParams(searchParans.toString());
+    const params = new URLSearchParams(searchParams.toString());
     params.set(type, value);
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -51,84 +51,96 @@ const ProductInteraction = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 mt-4">
+    <div className="flex flex-col gap-6">
+      {/* SIZE */}
       <div>
-        <span className="font-bold text-sm">Kích thước: </span>
-        <span className="text-xs underline text-gray-500 hover:cursor-pointer">
-          Hướng dẫn chọn size
-        </span>
-      </div>
-      {/* Size */}
-      <div className="flex flex-col gap-2 text-sm">
-        <span className="text-gray-500">Kích cỡ</span>
-        <div className="flex items-center gap-2">
-          {product.sizes.map((size) => (
-            <div
-              className={`cursor-pointer border p-0.5 ${
-                selectedSize === size ? "border-gray-600" : "border-gray-300"
-              }`}
-              key={size}
-              onClick={() => handleTypeChange("size", size)}
-            >
-              <div
-                className={`w-6 h-6 text-center flex items-center justify-center ${
-                  selectedSize === size
-                    ? "bg-black text-white"
-                    : "bg-white text-black"
-                }`}
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium">Kích thước</span>
+          <span className="text-xs text-gray-500 underline cursor-pointer hover:text-black">
+            Hướng dẫn chọn size
+          </span>
+        </div>
+
+        <div className="flex gap-2">
+          {product.sizes.map((size) => {
+            const active = selectedSize === size;
+
+            return (
+              <button
+                key={size}
+                onClick={() => handleTypeChange("size", size)}
+                className={`
+                  w-9 h-9 text-sm rounded-md border transition
+                  flex items-center justify-center hover:cursor-pointer
+                  ${
+                    active
+                      ? "bg-black text-white border-black"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-black"
+                  }
+                `}
               >
                 {size.toUpperCase()}
-              </div>
-            </div>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Color */}
-      <div className="flex flex-col gap-2 text-sm">
-        <span className="text-gray-500">Màu sắc</span>
-        <div className="flex items-center gap-2">
-          {product.colors.map((color) => (
-            <div
-              className={`cursor-pointer border p-0.5 ${
-                selectedColor === color ? "border-gray-600" : "border-white"
-              }`}
-              key={color}
-              onClick={() => handleTypeChange("color", color)}
-            >
-              <div
-                className={`w-6 h-6`}
+      {/* COLOR */}
+      <div>
+        <span className="text-sm font-medium mb-2 block">Màu sắc</span>
+
+        <div className="flex gap-3">
+          {product.colors.map((color) => {
+            const active = selectedColor === color;
+
+            return (
+              <button
+                key={color}
+                onClick={() => handleTypeChange("color", color)}
+                className={`
+                  w-7 h-7 rounded-full border-2 transition
+                  flex items-center justify-center hover:cursor-pointer
+                  ${
+                    active
+                      ? "border-black scale-110"
+                      : "border-gray-200 hover:border-black"
+                  }
+                `}
                 style={{ backgroundColor: color }}
-              ></div>
-            </div>
-          ))}
+              />
+            );
+          })}
         </div>
       </div>
 
-      {/* Quantity */}
-      <div className="flex flex-col gap-2 text-sm">
-        <span className="text-gray-500">Số lượng</span>
-        <div className="flex items-center gap-2">
+      {/* QUANTITY */}
+      <div>
+        <span className="text-sm font-medium mb-2 block">Số lượng</span>
+
+        <div className="flex items-center w-fit border border-gray-200 rounded-full overflow-hidden">
           <button
             onClick={() => handleQuantityChange("decrement")}
-            className="cursor-pointer border border-gray-300 p-1"
+            className="px-3 py-1 hover:bg-gray-100 transition hover:cursor-pointer"
           >
             <Minus className="w-4 h-4" />
           </button>
-          <span>{quantity}</span>
+
+          <span className="px-4 text-sm">{quantity}</span>
+
           <button
             onClick={() => handleQuantityChange("increment")}
-            className="cursor-pointer border border-gray-300 p-1"
+            className="px-3 py-1 hover:bg-gray-100 transition hover:cursor-pointer"
           >
             <Plus className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Button */}
+      {/* BUTTON */}
       <button
         onClick={handleAddToCart}
-        className="bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg flex items-center justify-center gap-2 cursor-pointer text-sm font-medium"
+        className="w-full py-3 rounded-xl hover:cursor-pointer bg-black text-white font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2"
       >
         <Plus className="w-4 h-4" />
         Thêm vào giỏ
@@ -136,4 +148,5 @@ const ProductInteraction = ({
     </div>
   );
 };
+
 export default ProductInteraction;
