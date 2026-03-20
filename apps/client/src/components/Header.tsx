@@ -10,7 +10,7 @@ const menuItems = [
   { label: "ÁO", href: "/products?category=t-shirts" },
   { label: "GIÀY", href: "/products?category=shoes" },
   { label: "PHỤ KIỆN", href: "/products?category=accessories" },
-  { label: "THÔNG TIN", href: "/" },
+  { label: "THÔNG TIN", href: "/info" },
 ];
 
 export default function Header() {

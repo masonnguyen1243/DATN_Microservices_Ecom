@@ -153,7 +153,7 @@ const AppSidebar = () => {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Sheet>
+                  {/* <Sheet>
                     <SheetTrigger asChild>
                       <SidebarMenuButton asChild>
                         <Link href="#">
@@ -163,7 +163,7 @@ const AppSidebar = () => {
                       </SidebarMenuButton>
                     </SheetTrigger>
                     <AddUser />
-                  </Sheet>
+                  </Sheet> */}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
