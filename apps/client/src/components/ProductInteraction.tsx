@@ -31,6 +31,10 @@ const ProductInteraction = ({
 
   const handleQuantityChange = (type: "increment" | "decrement") => {
     if (type === "increment") {
+      if (quantity >= product.inventory) {
+        toast.error("Đã đạt số lượng tối đa trong kho!");
+        return;
+      }
       setQuantity((prev) => prev + 1);
     } else {
       if (quantity > 1) {
@@ -40,6 +44,16 @@ const ProductInteraction = ({
   };
 
   const handleAddToCart = () => {
+    if (quantity > product.inventory) {
+      toast.error("Số lượng vượt quá tồn kho!");
+      return;
+    }
+
+    if (product.inventory === 0) {
+      toast.error("Sản phẩm đã hết hàng!");
+      return;
+    }
+
     addToCart({
       ...product,
       quantity,
@@ -135,12 +149,18 @@ const ProductInteraction = ({
             <Plus className="w-4 h-4" />
           </button>
         </div>
+
+        {/* Hiển thị tồn kho */}
+        <span className="text-xs text-gray-500 mt-1 block">
+          Còn lại: {product.inventory}
+        </span>
       </div>
 
       {/* BUTTON */}
       <button
         onClick={handleAddToCart}
-        className="w-full py-3 rounded-xl hover:cursor-pointer bg-black text-white font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2"
+        disabled={product.inventory === 0}
+        className="w-full py-3 rounded-xl hover:cursor-pointer bg-black text-white font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         <Plus className="w-4 h-4" />
         Thêm vào giỏ

@@ -10,7 +10,7 @@ export default async function Home({
 
   return (
     <div className="">
-      <div className="relative aspect-3/2 mb-12">
+      <div className="relative">
         <Image
           src={"/featured.jpeg"}
           alt="Featured Product"
