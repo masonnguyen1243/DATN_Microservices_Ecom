@@ -127,7 +127,9 @@ export const columns: ColumnDef<ProductType>[] = [
                 Xem sản phẩm
               </a>
             </DropdownMenuItem>
-            <DropdownMenuItem>Chỉnh sửa</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/products/${product.id}`}>Chỉnh sửa</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
