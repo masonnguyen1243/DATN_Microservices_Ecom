@@ -28,6 +28,11 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   };
 
   const handleAddToCart = () => {
+    if (product.inventory === 0) {
+      toast.error("Sản phẩm đã hết hàng!");
+      return;
+    }
+
     addToCart({
       ...product,
       quantity: 1,
@@ -55,6 +60,12 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+          {product.inventory === 0 && (
+            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md">
+              Hết hàng
+            </div>
+          )}
         </div>
       </Link>
 
@@ -109,7 +120,8 @@ const ProductCard = ({ product }: { product: ProductType }) => {
               e.preventDefault();
               handleAddToCart();
             }}
-            className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-white text-black hover:bg-gray-200 transition"
+            disabled={product.inventory === 0}
+            className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-white text-black hover:bg-gray-200 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
           </button>
