@@ -25,6 +25,8 @@ const ProductPage = async ({
 
   const product = await fetchProduct(id);
 
+  console.log(product);
+
   const selectedSize = (size || product.sizes[0]) as string;
   const selectedColor = (color || product.colors[0]) as string;
 

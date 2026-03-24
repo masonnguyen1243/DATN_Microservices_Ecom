@@ -131,11 +131,11 @@ const CardList = async ({ title }: { title: string }) => {
 
   if (title === "Sản phẩm mới nhất") {
     products = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?limit=5&popular=true`,
+      `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products?limit=5&sort=newest`,
     ).then((res) => res.json());
   } else {
     orders = await fetch(
-      `${process.env.NEXT_PUBLIC_ORDER_SERVICE_URL}/orders?limit=5&popular=true`,
+      `${process.env.NEXT_PUBLIC_ORDER_SERVICE_URL}/orders?limit=5`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

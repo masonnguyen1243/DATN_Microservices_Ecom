@@ -26,7 +26,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { ProductFormSchema, sizes, colors, CategoryType } from "@repo/types";
+import {
+  ProductFormSchema,
+  sizes,
+  colors,
+  CategoryType,
+  ProductType,
+} from "@repo/types";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -41,7 +47,7 @@ const fetchCategory = async () => {
   return res.json();
 };
 
-export default function EditProductForm({ product }) {
+export default function EditProductForm({ product }: { product: any }) {
   console.log("products", product);
 
   const router = useRouter();
@@ -110,6 +116,10 @@ export default function EditProductForm({ product }) {
     brown: "Nâu",
     purple: "Tím",
   };
+
+  if (!product || !product.id) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="max-w-3xl mx-auto py-10">
